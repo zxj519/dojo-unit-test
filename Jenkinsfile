@@ -20,19 +20,24 @@ pipeline {
         }
       }
     }
-    stage('compile & test') {
+    stage('Verify code') {
       steps {
         script {
-          sh 'mvn compile'
-          sh 'mvn test'
+          sh 'mvn clean verify'
         }
       }
     }
-    stage('build package') {
+    stage('Build package') {
       steps {
         script {
           sh 'mvn package'
         }
+      }
+    }
+    post {
+      always {
+        junit '**/target/*.xml'
+        jacoco(execPattern: 'target/jacoco.exec', classPattern: 'target/classes')
       }
     }
   }
