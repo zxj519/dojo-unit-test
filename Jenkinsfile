@@ -23,7 +23,7 @@ pipeline {
     stage('Verify code') {
       steps {
         script {
-          sh 'mvn clean verify'
+          sh 'mvn clean test verify'
         }
       }
     }
