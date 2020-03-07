@@ -34,11 +34,11 @@ pipeline {
         }
       }
     }
-    post {
-      always {
-        junit '**/target/*.xml'
-        jacoco(execPattern: 'target/jacoco.exec', classPattern: 'target/classes')
-      }
+  }
+  post {
+    always {
+      junit '**/target/*.xml'
+      jacoco(execPattern: 'target/jacoco.exec', classPattern: 'target/classes')
     }
   }
 }
