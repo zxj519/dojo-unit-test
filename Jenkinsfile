@@ -1,10 +1,10 @@
 def duration = arguments.duration ?: 30
 def timeoutUnits = arguments.timeoutUnits ?: 'MINUTES'
-def gitCommit = null
-
-def getGitCommit() {
-  return sh(returnStdout: true, script: "git rev-list --abbrev-commit --max-count=1 HEAD").trim()
-}
+//def gitCommit = null
+//
+//def getGitCommit() {
+//  return sh(returnStdout: true, script: "git rev-list --abbrev-commit --max-count=1 HEAD").trim()
+//}
 
 pipeline {
   options {
@@ -16,7 +16,7 @@ pipeline {
       steps {
         script {
           checkout scm
-          gitCommit = getGitCommit()
+//          gitCommit = getGitCommit()
         }
       }
     }
