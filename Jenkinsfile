@@ -15,8 +15,8 @@ pipeline {
     stage('Clone') {
       steps {
         script {
-          checkout scm
           gitCommit = getGitCommit()
+          echo "Start build [${gitCommit}] "
         }
       }
     }
