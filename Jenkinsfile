@@ -23,25 +23,26 @@ pipeline {
     stage('Compile & Test') {
       steps {
         script {
-          sh 'mvn clean install'
+          try {
+            sh 'mvn clean install'
+          }catch(e) {
+            throw e
+          }finally {
+            jacoco(
+                execPattern: '**/jacoco.exec',
+                classPattern: '**/target/classes/**',
+                sourcePattern: '**/src/main/java/**',
+                inclusionPattern: '**/*.class',
+                exclusionPattern: '**/src/test/**',
+                changeBuildStatus: true,
+                deltaLineCoverage: '90',
+                minimumClassCoverage: '0',
+                maximumClassCoverage: '100',
+                minimumLineCoverage: '0',
+                maximumLineCoverage: '90'
+            )
+          }
         }
-      }
-    }
-    post {
-      always {
-        jacoco(
-            execPattern: '**/jacoco.exec',
-            classPattern: '**/target/classes/**',
-            sourcePattern: '**/src/main/java/**',
-            inclusionPattern: '**/*.class',
-            exclusionPattern: '**/src/test/**',
-            changeBuildStatus: true,
-            deltaLineCoverage: '90',
-            minimumClassCoverage: '0',
-            maximumClassCoverage: '100',
-            minimumLineCoverage: '0',
-            maximumLineCoverage: '90'
-        )
       }
     }
     stage('Code Coverage') {
