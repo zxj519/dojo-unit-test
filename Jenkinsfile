@@ -23,7 +23,7 @@ pipeline {
     stage('Compile & Test') {
       steps {
         script {
-          sh 'mvn clean test'
+          sh 'mvn clean install'
         }
       }
     }
