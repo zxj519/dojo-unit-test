@@ -38,7 +38,10 @@ pipeline {
               exclusionPattern: '**/src/test/**',
               changeBuildStatus: true,
               deltaLineCoverage: '90',
-              minimumLineCoverage: '80'
+              minClass: '0',
+              maxClass: '100',
+              minimumLineCoverage: '0',
+              maximumLineCoverage: '90'
           )
         }
       }
