@@ -28,19 +28,7 @@ pipeline {
           }catch(e) {
             throw e
           }finally {
-            jacoco(
-                execPattern: '**/jacoco.exec',
-                classPattern: '**/target/classes/**',
-                sourcePattern: '**/src/main/java/**',
-                inclusionPattern: '**/*.class',
-                exclusionPattern: '**/src/test/**',
-                changeBuildStatus: true,
-                deltaLineCoverage: '90',
-                minimumClassCoverage: '0',
-                maximumClassCoverage: '100',
-                minimumLineCoverage: '0',
-                maximumLineCoverage: '90'
-            )
+            echo 'failed to install'
           }
         }
       }
@@ -65,6 +53,19 @@ pipeline {
       script {
         sh 'ls -lrt'
         junit 'target/surefire-reports/*.xml'
+        jacoco(
+            execPattern: '**/**.exec',
+            classPattern: '**/target/classes/**',
+            sourcePattern: '**/src/main/java/**',
+            inclusionPattern: '**/*.class',
+            exclusionPattern: '**/src/test/**',
+            changeBuildStatus: true,
+            deltaLineCoverage: '90',
+            minimumClassCoverage: '0',
+            maximumClassCoverage: '100',
+            minimumLineCoverage: '0',
+            maximumLineCoverage: '90'
+        )
       }
     }
   }
