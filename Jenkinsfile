@@ -27,6 +27,23 @@ pipeline {
         }
       }
     }
+    post {
+      always {
+        jacoco(
+            execPattern: '**/jacoco.exec',
+            classPattern: '**/target/classes/**',
+            sourcePattern: '**/src/main/java/**',
+            inclusionPattern: '**/*.class',
+            exclusionPattern: '**/src/test/**',
+            changeBuildStatus: true,
+            deltaLineCoverage: '90',
+            minimumClassCoverage: '0',
+            maximumClassCoverage: '100',
+            minimumLineCoverage: '0',
+            maximumLineCoverage: '90'
+        )
+      }
+    }
     stage('Code Coverage') {
       steps {
         script {
@@ -47,19 +64,6 @@ pipeline {
       script {
         sh 'ls -lrt'
         junit 'target/surefire-reports/*.xml'
-        jacoco(
-            execPattern: '**/jacoco.exec',
-            classPattern: '**/target/classes/**',
-            sourcePattern: '**/src/main/java/**',
-            inclusionPattern: '**/*.class',
-            exclusionPattern: '**/src/test/**',
-            changeBuildStatus: true,
-            deltaLineCoverage: '90',
-            minimumClassCoverage: '0',
-            maximumClassCoverage: '100',
-            minimumLineCoverage: '0',
-            maximumLineCoverage: '90'
-        )
       }
     }
   }
