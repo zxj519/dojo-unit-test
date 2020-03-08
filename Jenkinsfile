@@ -30,19 +30,7 @@ pipeline {
     stage('Code Coverage') {
       steps {
         script {
-          jacoco(
-              execPattern: '**/jacoco.exec',
-              classPattern: '**/target/classes/**',
-              sourcePattern: '**/src/main/java/**',
-              inclusionPattern: '**/*.class',
-              exclusionPattern: '**/src/test/**',
-              changeBuildStatus: true,
-              deltaLineCoverage: '90',
-              minClass: '0',
-              maxClass: '100',
-              minimumLineCoverage: '0',
-              maximumLineCoverage: '90'
-          )
+          echo 'move to post actions'
         }
       }
     }
@@ -59,14 +47,19 @@ pipeline {
       script {
         sh 'ls -lrt'
         junit 'target/surefire-reports/*.xml'
-        publishHTML (target: [
-            allowMissing: false,
-            alwaysLinkToLastBuild: false,
-            keepAll: true,
-            reportDir: 'target/site/jacoco',
-            reportFiles: 'index.html',
-            reportName: "RCov Report"
-        ])
+        jacoco(
+            execPattern: '**/jacoco.exec',
+            classPattern: '**/target/classes/**',
+            sourcePattern: '**/src/main/java/**',
+            inclusionPattern: '**/*.class',
+            exclusionPattern: '**/src/test/**',
+            changeBuildStatus: true,
+            deltaLineCoverage: '90',
+            minClass: '0',
+            maxClass: '100',
+            minimumLineCoverage: '0',
+            maximumLineCoverage: '90'
+        )
       }
     }
   }
