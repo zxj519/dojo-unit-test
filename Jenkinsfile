@@ -24,13 +24,6 @@ pipeline {
       steps {
         script {
           sh 'mvn clean test verify'
-          jacoco(
-              execPattern: '**/jacoco.exec',
-              classPattern: '**/target/classes/**',
-              sourcePattern: '**/src/main/java/**',
-              inclusionPattern: '**/*.class',
-              exclusionPattern: '**/src/test/**'
-          )
         }
       }
     }
@@ -44,7 +37,18 @@ pipeline {
   }
   post {
     always {
-      junit 'target/surefire-reports/*.xml'
+      steps {
+        script {
+          junit 'target/surefire-reports/*.xml'
+          jacoco(
+              execPattern: '**/jacoco.exec',
+              classPattern: '**/target/classes/**',
+              sourcePattern: '**/src/main/java/**',
+              inclusionPattern: '**/*.class',
+              exclusionPattern: '**/src/test/**'
+          )
+        }
+      }
     }
   }
 }
