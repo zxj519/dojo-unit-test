@@ -48,18 +48,12 @@ pipeline {
         sh 'ls -lrt'
         junit 'target/surefire-reports/*.xml'
         jacoco(
-            execPattern: '**/**.exec',
+            execPattern: '**/target/jacoco.exec',
             classPattern: '**/target/classes/**',
             sourcePattern: '**/src/main/java/**',
             inclusionPattern: '**/*.class',
             exclusionPattern: '**/src/test/**',
-            changeBuildStatus: true,
-            runAlways: true,
-            deltaLineCoverage: '90',
-            minimumClassCoverage: '0',
-            maximumClassCoverage: '100',
-            minimumLineCoverage: '0',
-            maximumLineCoverage: '90'
+            runAlways: true
         )
       }
     }
