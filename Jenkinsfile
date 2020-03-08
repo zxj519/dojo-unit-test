@@ -37,17 +37,15 @@ pipeline {
   }
   post {
     always {
-      steps {
-        script {
-          junit 'target/surefire-reports/*.xml'
-          jacoco(
-              execPattern: '**/jacoco.exec',
-              classPattern: '**/target/classes/**',
-              sourcePattern: '**/src/main/java/**',
-              inclusionPattern: '**/*.class',
-              exclusionPattern: '**/src/test/**'
-          )
-        }
+      script {
+        junit 'target/surefire-reports/*.xml'
+        jacoco(
+            execPattern: '**/jacoco.exec',
+            classPattern: '**/target/classes/**',
+            sourcePattern: '**/src/main/java/**',
+            inclusionPattern: '**/*.class',
+            exclusionPattern: '**/src/test/**'
+        )
       }
     }
   }
