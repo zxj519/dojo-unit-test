@@ -23,13 +23,7 @@ pipeline {
     stage('Compile & Test') {
       steps {
         script {
-          try {
-            sh 'mvn clean install'
-          } catch (e) {
-            throw e
-          } finally {
-            echo 'failed to install'
-          }
+          sh 'mvn clean install'
         }
       }
     }
@@ -53,24 +47,20 @@ pipeline {
       script {
         sh 'ls -lrt'
         junit 'target/surefire-reports/*.xml'
-        try {
-          jacoco(
-              execPattern: '**/**.exec',
-              classPattern: '**/target/classes/**',
-              sourcePattern: '**/src/main/java/**',
-              inclusionPattern: '**/*.class',
-              exclusionPattern: '**/src/test/**',
-              changeBuildStatus: true,
-              runAlways: true,
-              deltaLineCoverage: '90',
-              minimumClassCoverage: '0',
-              maximumClassCoverage: '100',
-              minimumLineCoverage: '0',
-              maximumLineCoverage: '90'
-          )
-        } catch (e) {
-          e.printStackTrace()
-        }
+        jacoco(
+            execPattern: '**/**.exec',
+            classPattern: '**/target/classes/**',
+            sourcePattern: '**/src/main/java/**',
+            inclusionPattern: '**/*.class',
+            exclusionPattern: '**/src/test/**',
+            changeBuildStatus: true,
+            runAlways: true,
+            deltaLineCoverage: '90',
+            minimumClassCoverage: '0',
+            maximumClassCoverage: '100',
+            minimumLineCoverage: '0',
+            maximumLineCoverage: '90'
+        )
       }
     }
   }
