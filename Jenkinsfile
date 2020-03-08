@@ -20,10 +20,26 @@ pipeline {
         }
       }
     }
-    stage('Verify code') {
+    stage('Compile & Test') {
       steps {
         script {
-          sh 'mvn clean test verify'
+          sh 'mvn clean test'
+        }
+      }
+    }
+    stage('Code Coverage') {
+      steps {
+        script {
+          jacoco(
+              execPattern: '**/jacoco.exec',
+              classPattern: '**/target/classes/**',
+              sourcePattern: '**/src/main/java/**',
+              inclusionPattern: '**/*.class',
+              exclusionPattern: '**/src/test/**',
+              changeBuildStatus: true,
+              deltaLineCoverage: 90,
+              minimumLineCoverage: 80
+          )
         }
       }
     }
@@ -38,14 +54,8 @@ pipeline {
   post {
     always {
       script {
+        sh 'ls -lrt'
         junit 'target/surefire-reports/*.xml'
-        jacoco(
-            execPattern: '**/jacoco.exec',
-            classPattern: '**/target/classes/**',
-            sourcePattern: '**/src/main/java/**',
-            inclusionPattern: '**/*.class',
-            exclusionPattern: '**/src/test/**'
-        )
       }
     }
   }
