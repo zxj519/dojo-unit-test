@@ -39,7 +39,7 @@ pipeline {
     always {
       script {
         sh 'ls -lrt'
-        junit 'target/surefire-reports/*.xml'
+        junit 'build/test-results/test/*.xml'
         jacoco(
             execPattern: '**/jacoco/jacoco.exec',
             classPattern: '**/classes/main/java/**',
