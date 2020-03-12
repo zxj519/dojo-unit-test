@@ -31,12 +31,14 @@ def activeProfile = project.hasProperty('profile') ? project.property('profile')
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.postgresql:postgresql'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'junit:junit:4.12'
     testImplementation 'com.h2database:h2:1.4.194'
 }
 
 test {
+  systemProperty 'spring.profiles.active', activeProfile
   testLogging.showStandardStreams = false
   testLogging {
     events "passed", "skipped", "failed"

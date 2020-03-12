@@ -23,21 +23,14 @@ pipeline {
     stage('Compile & Test') {
       steps {
         script {
-          sh 'mvn clean install'
-        }
-      }
-    }
-    stage('Code Coverage') {
-      steps {
-        script {
-          echo 'move to post actions'
+          sh './gradlew clean test'
         }
       }
     }
     stage('Build package') {
       steps {
         script {
-          sh 'mvn package'
+          sh './gradlew build' -i
         }
       }
     }
@@ -48,8 +41,8 @@ pipeline {
         sh 'ls -lrt'
         junit 'target/surefire-reports/*.xml'
         jacoco(
-            execPattern: '**/target/jacoco.exec',
-            classPattern: '**/target/classes/**',
+            execPattern: '**/jacoco/jacoco.exec',
+            classPattern: '**/classes/main/java/**',
             sourcePattern: '**/src/main/java/**',
             inclusionPattern: '**/*.class',
             exclusionPattern: '**/src/test/**',
