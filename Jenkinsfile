@@ -27,6 +27,13 @@ pipeline {
         }
       }
     }
+    stage('Test Coverage Check') {
+      steps {
+        script {
+          sh './gradlew jacocoTestCoverageVerification'
+        }
+      }
+    }
     stage('Build package') {
       steps {
         script {

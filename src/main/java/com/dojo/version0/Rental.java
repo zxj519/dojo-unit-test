@@ -1,4 +1,4 @@
-package version0;
+package com.dojo.version0;
 
 class Rental {
   private Movie movie;

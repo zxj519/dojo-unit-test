@@ -1,4 +1,4 @@
-package version0;
+package com.dojo.version0;
 
 public class Movie {
   static final int CHILDREN = 2;

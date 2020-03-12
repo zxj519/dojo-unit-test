@@ -1,4 +1,4 @@
-package version0;
+package com.dojo.version0;
 
 import static org.junit.Assert.assertEquals;
 
