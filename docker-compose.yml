@@ -3,14 +3,10 @@ services:
   postgres:
     image: 'postgres:9.6-alpine'
     restart: always
-    volumes:
-      - 'postgres-data:/tmp/postgresql/data'
-    container_name: postgres
+    container_name: postgres-dojo
     environment:
       POSTGRES_DB: test_db
       POSTGRES_USER: local
       POSTGRES_PASSWORD: local
     ports:
-      - '5432:5432'
-volumes:
-  postgres-data: null
+      - '5433:5432'

@@ -25,7 +25,7 @@ buildscript {
 }
 
 
-def activeProfile = project.hasProperty('profile') ? project.property('profile') : 'local'
+def activeProfile = System.getProperty('profile').isEmpty() ? 'local' : System.getProperty('profile')
 
 
 
@@ -34,7 +34,7 @@ dependencies {
     implementation 'org.postgresql:postgresql'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'junit:junit:4.12'
-    testImplementation 'com.h2database:h2:1.4.194'
+//    testImplementation 'com.h2database:h2:1.4.194'
 }
 
 jacoco {
@@ -43,6 +43,7 @@ jacoco {
 }
 
 test {
+  systemProperty 'spring.profiles.active', activeProfile
   testLogging.showStandardStreams = false
   testLogging {
     events "passed", "skipped", "failed"
@@ -92,3 +93,5 @@ bootRun {
     args project.args.split('\\s+')
   }
 }
+
+check.dependsOn jacocoTestCoverageVerification
