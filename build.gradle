@@ -52,7 +52,7 @@ test {
   }
   jacoco {
     append = false
-    destinationFile = file("$buildDir/jacoco/jacocoTest.exec")
+    destinationFile = file("$buildDir/jacoco/jacoco.exec")
   }
 }
 
