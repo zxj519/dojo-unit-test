@@ -43,7 +43,6 @@ jacoco {
 }
 
 test {
-  systemProperty 'spring.profiles.active', activeProfile
   testLogging.showStandardStreams = false
   testLogging {
     events "passed", "skipped", "failed"
@@ -54,7 +53,6 @@ test {
   jacoco {
     append = false
     destinationFile = file("$buildDir/jacoco/jacocoTest.exec")
-    classDumpDir = file("$buildDir/jacoco/classpathdumps")
   }
 }
 
