@@ -20,10 +20,25 @@ pipeline {
         }
       }
     }
+    stage('Setup test env') {
+      steps {
+        script {
+          sh 'docker-compose up -d'
+          sh 'export PGPASSWORD=\'local\' && until psql -h 127.0.0.1 -p 5433 -U local -q -d test_db -c \'SELECT 1\'; do echo "Waiting for postgreSQL to start"; sleep 10; done && unset PGPASSWORD'
+        }
+      }
+    }
     stage('Compile & Test') {
       steps {
         script {
-          sh './gradlew clean test'
+          sh './gradlew clean test -Dprofile=ci-test'
+        }
+      }
+    }
+    stage('Tear Down test env') {
+      steps {
+        script {
+          sh 'docker-compose down'
         }
       }
     }

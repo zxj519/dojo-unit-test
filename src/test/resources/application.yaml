@@ -1,8 +1,4 @@
 spring:
-
----
-spring:
-  profiles: local-test
   datasource:
     platform: h2
   jpa:
