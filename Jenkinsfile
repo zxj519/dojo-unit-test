@@ -53,7 +53,6 @@ pipeline {
       steps {
         script {
           sh './gradlew build'
-          archiveArtifacts artifacts: 'build/libs/dojo-unit-test-0.0.1-SNAPSHOT.jar', onlyIfSuccessful: true
         }
       }
     }
