@@ -52,15 +52,17 @@ pipeline {
     stage('Build package') {
       steps {
         script {
-          sh './gradlew build' -i
+          sh './gradlew build'
         }
       }
     }
   }
   post {
+    success {
+      archiveArtifacts artifacts: '**/dojo-unit-test-0.0.1-SNAPSHOT.jar', onlyIfSuccessful: true
+    }
     always {
       script {
-        sh 'ls -lrt'
         junit 'build/test-results/test/*.xml'
         jacoco(
             execPattern: '**/jacoco/jacoco.exec',
