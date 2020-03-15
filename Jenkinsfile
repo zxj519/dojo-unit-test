@@ -59,7 +59,7 @@ pipeline {
   }
   post {
     success {
-      archiveArtifacts artifacts: '**/dojo-unit-test-0.0.1-SNAPSHOT.jar', onlyIfSuccessful: true
+      archiveArtifacts artifacts: 'build/libs/dojo-unit-test-0.0.1-SNAPSHOT.jar', onlyIfSuccessful: true
     }
     always {
       script {
